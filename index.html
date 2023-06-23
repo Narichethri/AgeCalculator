@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Age Calculater</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h2>Age Calculator</h2>
+  <div class="box">
+
+    <div class="input">
+      <input type="date" id="date" max="today">
+      <input type="time" id="time" placeholder="HH:MM">
+      <button id="button" onclick='calc()'>Calculate</button>
+
+    </div>
+    <p id="result"></p>
+  </div>
+
+  <script>
+
+    let userinput = document.getElementById("date");
+    userinput.max = new Date().toISOString().split('T')[0];
+    let result = document.getElementById('result');
+    let usertime = document.getElementById('time');
+
+    function calc() {
+      let datebirth = new Date(userinput.value);
+
+      let d1 = datebirth.getDate();
+      let m1 = datebirth.getMonth() + 1;
+      let y1 = datebirth.getFullYear();
+      //let h1 = datebirth.gethours(); 
+
+      let today = new Date();
+
+      let d2 = today.getDate();
+      let m2 = today.getMonth() + 1;
+      let y2 = today.getFullYear();
+      let hours2 = today.getHours();
+      let min2 = today.getMinutes();
+
+      let d3, m3, y3;
+
+      y3 = y2 - y1;
+
+      if (m2 >= m1) {
+        m3 = m2 - m1;
+      } else {
+        y3--;
+        m3 = 12 + m2 - m1;
+      }
+      if (d2 >= d1) {
+        d3 = d2 - d1;
+      } else {
+        m3--;
+        d3 = getdaysInMonth(y1, m1) + d2 - d1;
+
+      }
+      if (m3 < 0) {
+        m3 = 12;
+        y3--;
+      }
+      if (m3 == 0 && d3 == 0) {
+        alert("✨✨Happy Baday Dear ✨✨");
+      }
+      var usertime = document.getElementById('time');
+      var selectedtime = usertime.value;
+      var timeParts = selectedtime.split(":");
+      var hours1 = parseInt(timeParts[0]);
+      var min1 = parseInt(timeParts[1]);
+      console.log(min2);
+      if (hours2 >= hours1) {
+        hours2 = hours2 - hours1;
+      } else {
+        d3--;
+        hours2 = 24 - (hours1 - hours2);
+      }
+      if (min2 >= min1) {
+        min2 = min2 - min1;
+      } else {
+        hours2--;
+        min2 = 60 - (min1 - min2);
+      }
+
+      if (d3 == -1) {
+        d3 = 0;
+      }
+
+      result.innerHTML = y3 + ' years ' + m3 + ' months ' + d3 + ' days old ' + hours2 + ' hours ' + min2 + ' minutes ';
+
+
+
+    }
+    function getdaysInMonth(year, month) {
+      return new Date(year, month, 0).getDate();
+    }
+
+
+  </script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
